@@ -115,23 +115,23 @@ void putPosition(coordonates &button,int a,int b,int c,int d)
 }
 void loadImages()
 {
-    menuTexture.loadFromFile("grafica/menu/menu1clean.png");
-    menuPlayTexture.loadFromFile("grafica/menu/play/playmodeclean.png");
-    menuScoreTexture.loadFromFile("grafica/menu/scoreboard/scoreboardclean.png");
-    menuQuitTexture.loadFromFile("grafica/menu/quit/quitclean.png");
-    menuArenaTexture.loadFromFile("grafica/Arena/arenaclean.png");
+    menuTexture.loadFromFile("graphics/menu/menu1clean.png");
+    menuPlayTexture.loadFromFile("graphics/menu/play/playmodeclean.png");
+    menuScoreTexture.loadFromFile("graphics/menu/scoreboard/scoreboardclean.png");
+    menuQuitTexture.loadFromFile("graphics/menu/quit/quitclean.png");
+    menuArenaTexture.loadFromFile("graphics/Arena/arenaclean.png");
 
-    playButtonTexture.loadFromFile("grafica/menu/play/playbutton.png");
-    scoreButton1Texture.loadFromFile("grafica/menu/scoreboard/scoreboardbutton.png");
-    abortButton1Texture.loadFromFile("grafica/menu/quit/quitbutton.png");
+    playButtonTexture.loadFromFile("graphics/menu/play/playbutton.png");
+    scoreButton1Texture.loadFromFile("graphics/menu/scoreboard/scoreboardbutton.png");
+    abortButton1Texture.loadFromFile("graphics/menu/quit/quitbutton.png");
 
-    onePlayerTexture.loadFromFile("grafica/menu/play/1player.png");
-    twoPlayersTexture.loadFromFile("grafica/menu/play/2player.png");
+    onePlayerTexture.loadFromFile("graphics/menu/play/1player.png");
+    twoPlayersTexture.loadFromFile("graphics/menu/play/2player.png");
 
-    ayeTexture.loadFromFile("grafica/menu/quit/aye.png");
-    nopeTexture.loadFromFile("grafica/menu/quit/nope.png");
+    ayeTexture.loadFromFile("graphics/menu/quit/aye.png");
+    nopeTexture.loadFromFile("graphics/menu/quit/nope.png");
 
-    backTexture.loadFromFile("grafica/Arena/back.png");
+    backTexture.loadFromFile("graphics/Arena/back.png");
 }
 void loadTextures()
 {

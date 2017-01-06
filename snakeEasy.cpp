@@ -5,10 +5,10 @@
 #include <windows.h>
 using namespace std;
 time_t TimeUp,TimeStart;
-bool tie,gameOver,Lose;char reset;
+bool gameOver,Lose;char reset;
 const int width=24;
 const int height=24;
-const int timeGame=60;
+const int timeGame=600;
 int Pscore,AIscore,CanIgo[100][100];
 int lengthTail,AIlengthTail;
 struct coordinates{
@@ -34,6 +34,13 @@ void PutObject(coordinates &object)
         else
       for (int i=0;i<=lengthTail;i++)
     if (tail[i].x==object.x&&tail[i].y==object.y)
+       PutObject(object);
+       if (AIhead.x==object.x&&AIhead.y==object.y)
+           PutObject(object);
+
+        else
+      for (int i=0;i<=AIlengthTail;i++)
+    if (AItail[i].x==object.x&&AItail[i].y==object.y)
        PutObject(object);
 
 }
@@ -61,7 +68,7 @@ for(int i=0;i<=width;i++)
     if(i==0||j==0||i==width||j==height)
         Arena[i][j]='#';
         else
-        Arena[i][j]=' ';
+        Arena[i][j]='-';
 
 	Arena[head.y][head.x]='O';
     Arena[AIhead.y][AIhead.x]='X';
@@ -171,14 +178,7 @@ void AIeyes()
 
 
         CanIgo[head.y][head.x]=0;
-        CanIgo[head.y-1][head.x-1]=0;
-        CanIgo[head.y-1][head.x+1]=0;
-        CanIgo[head.y-1][head.x]=0;
-        CanIgo[head.y+1][head.x]=0;
-        CanIgo[head.y+1][head.x-1]=0;
-        CanIgo[head.y+1][head.x+1]=0;
-        CanIgo[head.y][head.x-1]=0;
-        CanIgo[head.y][head.x+1]=0;
+
         for(int i=1;i<=lengthTail;i++)
         CanIgo[tail[i].y][tail[i].x]=0;
     for(int i=1;i<=AIlengthTail;i++)
@@ -222,10 +222,193 @@ void NefavorabileCase()
 }
 void MovementAI(coordinates &AIhead)
 {
-    bool AImove;
-     favorabileCase(AImove);
-     if(AImove==false)
-        NefavorabileCase();
+    bool AImove=false;int x,y;
+    int GORIGHT = CanIgo[AIhead.y][AIhead.x+1];
+    int GOLEFT  = CanIgo[AIhead.y][AIhead.x-1];
+    int GOUP    = CanIgo[AIhead.y-1][AIhead.x];
+    int GODOWN  = CanIgo[AIhead.y+1][AIhead.x];
+    if(GOUP==0&&GODOWN==0&&GOLEFT==0&&GORIGHT==1)
+    {
+        AImove=true;
+        AIhead.x++;
+    }
+    else
+
+    if(GOUP==0&&GODOWN==0&&GOLEFT==1&&GORIGHT==0)
+    {
+        AImove=true;
+        AIhead.x--;
+    }
+    else
+    if(GOUP==0&&GODOWN==1&&GOLEFT==0&&GORIGHT==0)
+    {
+        AImove=true;
+        AIhead.y++;
+    }
+    else
+    if(GOUP==1&&GODOWN==0&&GOLEFT==0&&GORIGHT==0)
+    {
+        AImove=true;
+        AIhead.y--;
+    }
+    else
+    if(GOUP==0&&GODOWN==1&&GOLEFT==0&&GORIGHT==1)
+    {
+        AImove=true;
+        if(fruit.x>AIhead.x)
+        AIhead.x++;
+        else
+        AIhead.y++;
+    }
+    else
+      if(GOUP==1&&GODOWN==0&&GOLEFT==0&&GORIGHT==1)
+    {
+        AImove=true;
+        if(fruit.x>AIhead.x)
+        AIhead.x++;
+        else
+        AIhead.y--;
+    }
+    else
+      if(GOUP==0&&GODOWN==0&&GOLEFT==1&&GORIGHT==1)
+    {
+            y=AIhead.y;
+            if(AItail[1].y<AIhead.y)
+            {
+                while(CanIgo[y][AIhead.x]==0&&y>0)
+                    y--;
+                    y++;
+                if(CanIgo[y][AIhead.x+1]==1)
+                    AIhead.x++;
+                else
+                   AIhead.x--;
+
+            }
+            else
+             {
+                while(CanIgo[y][AIhead.x]==0&&y>height)
+                    y++;
+                     y--;
+                if(CanIgo[y][AIhead.x+1]==1)
+                    AIhead.x++;
+                else
+                   AIhead.x--;
+
+            }
+
+        }
+    else
+      if(GOUP==1&&GODOWN==0&&GOLEFT==1&&GORIGHT==0)
+    {
+        AImove=true;
+        if(fruit.x<AIhead.x)
+        AIhead.x--;
+        else
+        AIhead.y--;
+    }
+     else
+      if(GOUP==0&&GODOWN==1&&GOLEFT==1&&GORIGHT==0)
+    {
+        AImove=true;
+        if(fruit.x<AIhead.x)
+        AIhead.x--;
+        else
+        AIhead.y++;
+    }
+        else
+      if(GOUP==1&&GODOWN==1&&GOLEFT==0&&GORIGHT==0)
+            {
+            x=AIhead.x;
+            if(AItail[1].x<AIhead.x)
+            {
+                while(CanIgo[AIhead.y][x]==0&&x>0)
+                    x--;
+                x++;
+                if(CanIgo[AIhead.y+1][x]==1)
+                    AIhead.y++;
+                else
+                   AIhead.y--;
+
+            }
+            else
+             {
+                while(CanIgo[AIhead.y][x]==0&&x>width)
+                    x++;
+                    x--;
+                if(CanIgo[AIhead.y+1][x]==1)
+                    AIhead.y++;
+                else
+                   AIhead.y--;
+
+            }
+
+        }
+    else
+    if(GOUP==1&&GODOWN==1&&GOLEFT==0&&GORIGHT==1)
+    {
+        AImove=true;
+    if(AIhead.x<fruit.x)
+        AIhead.x++;
+        else
+        if(fruit.y<AIhead.y)
+        AIhead.y--;
+        else
+        AIhead.y++;
+    }
+        else
+    if(GOUP==1&&GODOWN==1&&GOLEFT==1&&GORIGHT==0)
+    {
+        AImove=true;
+    if(AIhead.x>fruit.x)
+        AIhead.x--;
+        else
+        if(fruit.y<AIhead.y)
+        AIhead.y--;
+        else
+        AIhead.y++;
+    }
+    else
+
+    if(GOUP==0&&GODOWN==1&&GOLEFT==1&&GORIGHT==1)
+    {
+        AImove=true;
+    if(AIhead.y<fruit.y)
+        AIhead.y++;
+        else
+        if(fruit.x<AIhead.x)
+        AIhead.x--;
+        else
+        AIhead.x++;
+    }
+        else
+    if(GOUP==1&&GODOWN==0&&GOLEFT==1&&GORIGHT==1)
+    {
+        AImove=true;
+    if(AIhead.y>fruit.y)
+        AIhead.y--;
+        else
+        if(fruit.x<AIhead.x)
+        AIhead.x--;
+        else
+        AIhead.x++;
+    }
+    else
+    {
+        AImove=true;
+        if(fruit.x<AIhead.x)
+        AIhead.x--;
+        else
+        if(fruit.x>AIhead.x)
+        AIhead.x++;
+        else
+        if(fruit.y<AIhead.y)
+        AIhead.y--;
+        else
+        if(fruit.y>AIhead.y)
+        AIhead.y++;
+    }
+
+
 
 
 }
@@ -245,7 +428,7 @@ void EndGameCondition()
   if(head.x==AIhead.x&&head.y==AIhead.y)
   {
       gameOver=true;
-       tie=true;
+       Lose=true;
   }
   else
 
@@ -307,7 +490,7 @@ void PLay()
 		Draw();
 		Input();
 		Logic();
-		Sleep(80);
+        Sleep(70);
 	}
 }
 int main()
@@ -315,9 +498,6 @@ int main()
      RESET:
 
      PLay();
-if(tie)
-cout<<"eh";
-else
 if(Lose==true)
     cout<<"lacrima";
 else

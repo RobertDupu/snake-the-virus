@@ -1,3 +1,4 @@
+// by Mihaila Alexandra
 #include <iostream>
 #include <ctime>
 #include <conio.h>

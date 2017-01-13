@@ -29,3 +29,6 @@ This mide includes both fruits and powerups.
 
 Keyboards: Player1: W, S, A, D.
            Player2: Up, Down, Left, Right.
+
+Requires Codeblocks.
+SFML library is already installed in the project.

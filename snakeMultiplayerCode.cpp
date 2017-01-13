@@ -333,7 +333,7 @@ void logicMultiplayer(int timeGame)
         {
             startDoublePW1=0;
             finishDoublePW1=0;
-            doublePower1=2;
+            doublePower1=1;
         }
         else
             time(&finishDoublePW1);
@@ -344,7 +344,7 @@ void logicMultiplayer(int timeGame)
         {
             startDoublePW2=0;
             finishDoublePW2=0;
-            doublePower2=2;
+            doublePower2=1;
         }
         else
             time(&finishDoublePW2);
@@ -357,7 +357,7 @@ void logicMultiplayer(int timeGame)
             startMangaPW1=0;
             finishMangaPW1=0;
             PW1=0;
-            triplePower1=3;
+            triplePower1=1;
         }
         else
             time(&finishMangaPW1);
@@ -369,7 +369,7 @@ void logicMultiplayer(int timeGame)
             startMangaPW2=0;
             finishMangaPW2=0;
             PW2=0;
-            triplePower2=3;
+            triplePower2=1;
         }
         else
             time(&finishMangaPW2);

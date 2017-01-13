@@ -35,6 +35,7 @@
 			<Add directory="libraries/include" />
 		</Compiler>
 		<Linker>
+			<Add library="sfml-audio" />
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
@@ -42,6 +43,7 @@
 		</Linker>
 		<Unit filename="main.cpp" />
 		<Unit filename="scoreboard.in" />
+		<Unit filename="snakeSingleCode.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
